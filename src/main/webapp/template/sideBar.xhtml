@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<p:menu toggleable="true">
+
+		<p:submenu label="Admin" rendered="#{applicationUtilsMB.userRoleAsAdmin}">	
+			<p:menuitem value="Show" url="/student.xhtml" />
+			<p:menuitem value="update" url="/admin.xhtml" />		
+		</p:submenu>	
+		<p:submenu label="Guest" rendered="#{applicationUtilsMB.userRoleAsAdmin || applicationUtilsMB.userRoleAsGuest}">	
+			<p:menuitem value="Show" url="/student.xhtml" />
+			<p:menuitem value="update" url="/admin.xhtml" />		
+		</p:submenu>
+	</p:menu>
+
+</ui:composition>

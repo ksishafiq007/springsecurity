@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true" use-expressions="true">   
+    <access-denied-handler ref="my403" />
+       
+          <!--  <intercept-url pattern="/student.xhtml" access="permitAll"/> -->
+           <intercept-url pattern="/student.xhtml" access="hasAnyRole('ROLE_ADMIN','ROLE_GUEST')"/>
+		  	<intercept-url pattern="/admin.xhtml" access="hasAnyRole('ROLE_TEST')"/>
+		  	<intercept-url pattern="/user.xhtml" access="hasAnyRole('ROLE_TEST','ROLE_ADMIN')"/>
+		  <!-- 	<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_TEST','ROLE_ADMIN')"/> -->    
+		  
+        <form-login login-page="/login.xhtml" default-target-url="/login.xhtml"
+                    login-processing-url="/j_spring_security_check" authentication-failure-url="/login.xhtml" 
+                    authentication-success-handler-ref="customAuthenticationSuccessHandler" />
+        
+        <logout logout-url="/j_spring_security_logout" invalidate-session="true"  />
+
+    </http>
+    
+<beans:bean id="my403"
+	class="com.spring.dataJpa.authentication.CustomAccessDeniedHandler">
+	<beans:property name="errorPage" value="403" />
+</beans:bean>
+    
+    
+    
+    <authentication-manager>
+        <authentication-provider ref="customAuthenticationProvider"/>
+    </authentication-manager>
+   
+    <beans:bean id="customAuthenticationProvider"
+                class="com.spring.dataJpa.authentication.CustomAuthenticationProvider"/>
+    
+    <beans:bean id="customAuthenticationSuccessHandler"
+                class="com.spring.dataJpa.authentication.CustomAuthenticationSuccessHandler"/>
+    
+
+    
+    
+</beans:beans>

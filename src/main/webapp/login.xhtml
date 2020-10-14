@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />           
+        <title>Login</title>		
+	</h:head>
+	
+	<body style="background-image: url('images/loginbg.jpg')">
+	<form action="${request.contextPath}/j_spring_security_check" method="post">
+
+	<div class="ui-g"  style="margin: 20% auto">
+		<div class="ui-md-4"/>
+		<div class="ui-md-4">
+		  <p:panel>
+		  <center>
+		  <p:panelGrid columns="2">		  
+		  <p:outputLabel value="User Name"/>
+			<input name="j_username" type="text" autocomplete="off"/>	
+			<p:outputLabel value="Password"/>
+			<input name="j_password" type="password" autocomplete="off"/>	
+		  
+		  </p:panelGrid>
+		
+		<input type="submit" value="Login" style="margin-top:10px;"/><br/>
+			<span style="color:red">
+			 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+			</c:if> 
+			</span>
+		</center>		  
+		  </p:panel>
+		  </div>
+		<div class="ui-md-4"/>
+		   </div>
+
+    </form>
+    
+	</body>
+
+</html>

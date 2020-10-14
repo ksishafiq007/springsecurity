@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml"
+           >
+
+
+    <ui:define name="content">
+
+      
+      <h:head>      
+     <title>Home</title> 
+      </h:head>
+<h:body>
+<p:outputLabel value="Student Input Page"/>
+
+                            
+<h:form id="studentFrm">
+
+<p:growl/>
+
+<p:panel>
+<p:panelGrid columns="2">
+
+<p:outputLabel value="Student Name"/>
+<p:inputText value="#{studentController.studentDTO.studentName}"/>
+<p:outputLabel value="Roll"/>
+<p:inputText value="#{studentController.studentDTO.studentRoll}"/>
+<p:outputLabel value="Student Email"/>
+<p:inputText value="#{studentController.studentDTO.email}"/>
+
+</p:panelGrid>
+<center>
+<p:commandButton value="Save" icon="fa fa-save" action="#{studentController.saveOrUpdateStudent}" update="studentFrm"/>
+</center>
+</p:panel>
+
+
+<p:dataTable value="#{studentController.studentList}" var="student">
+
+<p:column headerText="Name" filterBy="#{student.studentName}">
+<p:outputLabel value="#{student.studentName}"/>
+</p:column>
+<p:column headerText="Roll" filterBy="#{student.studentRoll}">
+<p:outputLabel value="#{student.studentRoll}"/>
+</p:column>
+<p:column headerText="Email" filterBy="#{student.email}">
+<p:outputLabel value="#{student.email}"/>
+</p:column>
+<p:column headerText="Action">
+<p:commandButton action="#{studentController.findByStudentID}" icon="fa fa-edit" update="studentFrm">
+<f:setPropertyActionListener value="#{student}" target="#{studentController.studentDTO}"/>
+</p:commandButton>
+<p:commandButton action="#{studentController.deleteStudent}" icon="fa fa-trash" update="studentFrm">
+<f:setPropertyActionListener value="#{student}" target="#{studentController.studentDTO}"/>
+</p:commandButton>
+</p:column>
+
+</p:dataTable>
+
+</h:form>
+
+</h:body>
+    </ui:define>   
+
+
+</ui:composition>   
